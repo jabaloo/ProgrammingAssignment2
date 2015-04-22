@@ -2,6 +2,8 @@
 ## its value. Subsequent calls will return the cached value
 
 
+## This function creates a matrix with a variable x in the
+## environment to cache the value of the inverted matrix
 makeCacheMatrix <- function(x = matrix()) {
 	m <- NULL
 	set <- function(y) {
@@ -9,7 +11,7 @@ makeCacheMatrix <- function(x = matrix()) {
 		m <<- NULL
 	}
 	get <- function() x
-	setinverse <- function(mean) m <<- mean
+	setinverse <- function(inverse) m <<- inverse
 	getinverse <- function() m
 	list(set = set, get = get,
 			setinverse = setinverse,
@@ -17,8 +19,9 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
-
+## This function looks for a cached inverse of the matrix.
+## If it exists, it is returned. Otherwise, it calculates the
+## inverse matrix, stores it in the cache, and returns it
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         m <- x$getinverse()
